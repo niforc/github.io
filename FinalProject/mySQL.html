@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>mySQL</title>
+<meta charset="utf-8">
+<link href="flawed.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+</head>
+<body>
+<div id="wrapper">
+  <header>
+       <img src="Network+.png" alt="Network+.png">
+  </header>
+  </div>
+  <nav>
+  <ul id="float"> 
+      <li><a href="index.html">Home</a></li>
+	<li><a href="JavaScript.html">JavaScript</a></li>
+	<li><a href="C++.html">C++</a></li>
+	<li><a href="mySQL.html">mySQL</a></li>
+	<li><a href="Java.html">Java</a></li>
+	<li><a href="CSS.html">CSS</a></li>
+  </nav>
+  <main>
+<div id="rightcol">  
+  <h2>MySQL</h2>
+    <h3>This was an assignment in MySQL CLass that I had to create roles for users in a Criminal Records Database</h3>
+  <p>CREATE ROLE criminal_records;
+
+CREATE USER user1
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user1;
+
+CREATE USER user2
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user2;
+
+CREATE USER user3
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user3;
+
+CREATE USER user4
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user4;
+
+CREATE USER user5
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user5;
+
+CREATE USER user6
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user6;
+
+CREATE USER user7
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user7;
+
+CREATE USER user8
+IDENTIFIED BY password;
+GRANT criminal_records
+TO user8;
+
+GRANT create session, select, insert, update
+ON criminals
+TO criminal_records | PUBLIC;
+
+GRANT create session, select, insert, update
+ON crime_codes
+TO criminal_records | PUBLIC;
+
+GRANT create session, select, insert, update
+ON aliases
+TO criminal_records | PUBLIC;
+
+GRANT create session, select, insert, update
+ON officers
+TO criminal_records | PUBLIC;
+
+GRANT create session, select, insert, update
+ON crime_charges
+TO criminal_records | PUBLIC;
+
+GRANT create session, select, insert, update
+ON crimes
+TO criminal_records | PUBLIC;
+
+CREATE ROLE court_recording;
+
+GRANT create session, select, insert, update
+ON appeals
+TO court_recording | PUBLIC;
+</p>
+</div>  
+<div id="aside">
+<img src="Nick.png" alt="Nick.png">
+</div>
+</main>
+ <footer>
+ Page Built in 2019 By Nicholas Forcum For CSIS 290
+</footer> 
+</body>
+</html>

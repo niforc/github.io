@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>C++</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="flawed.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+<style>
+table { margin: auto;
+		border: 5px solid #ff0000;
+		padding: 1em;
+		width: 600px; }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <header>
+      <img src="Network+.png" alt="Network+.png">
+	  
+  </header>
+  </div>
+  <nav>
+  <ul id="float"> 
+     <li><a href="index.html">Home</a></li>
+	<li><a href="JavaScript.html">JavaScript</a></li>
+	<li><a href="C++.html">C++</a></li>
+	<li><a href="mySQL.html">mySQL</a></li>
+	<li><a href="Java.html">Java</a></li>
+	<li><a href="CSS.html">CSS</a></li>
+  </ul>
+  </nav>
+  <main>
+<div id="rightcol">  
+    <h3>This was a programming exercise in CSIS 223. It was used so that the program handles exceptions
+	such as division by zero and invalid input. I really enjoyed C++ classes.</h3>
+
+<p>
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	double x, y;
+	double result;
+	char op;
+
+	cout << "Enter the 1st number, the operator, and the 2nd number seperated by spaces: " << endl;
+	cin >> x >> op >> y;
+	cout << endl;
+	
+	switch (op)
+	{
+	case '+':
+		result = x + y;
+		cout << "This is what you entered: " << x << " " << op << " " << y << " = " << result << endl;
+		break;
+	case '-':
+		result = x - y;
+		cout << "This is what you entered: " << x << " " << op << " " << y << " = " << result << endl;
+		break;
+	case '*':
+		result = x * y;
+		cout << "This is what you entered: " << x << " " << op << " " << y << " = " << result << endl;
+		break;
+	case '/':
+		try
+		{
+			if (y == 0)
+				throw 0;
+			result = x / y;
+			cout << x << " " << op << " " << y << " = " << result << endl;
+		}
+		catch (int)
+		{
+			cout << "Division by 0. " << endl;
+		}
+		break;
+	default:
+		cout << "You did not enter valid operation. " << endl;
+	}
+	
+	system("pause");
+	return 0;
+}
+</p>
+<h3>This program that acts like a hand-held calculator or calculator app.  It will 
+include addition, subtraction, multiplication, division + results from a single calculation. 
+Must include a menu to allow the user to choose what arithmetic operation they want to complete. </h3>
+
+<p>#include "stdafx.h"
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+int main()
+{
+	cout << fixed << showpoint << setprecision(10);
+	char choice;
+	double x, y;
+	//symbol menu
+	cout << "Enter the symbol you would like to use: [*] [/] [+] [-]: ";
+	cin >> choice;
+	//enter the numbers
+	cout << " Enter the two numbers you would like to use Seperated by a space: ";
+	cin >> x >> y;
+	cout << endl;
+	//switch for choice
+	switch (choice)
+	{
+	case '*':
+		cout << x * y << endl;
+		break;
+	case '/':
+		cout << x / y << endl;
+		break;
+	case '+':
+		cout << x + y << endl;
+		break;
+	case '-':
+		cout << x - y << endl;
+
+		break;
+	default:
+		//if the wrong symbol is entered
+		cout << "You have chosen the wrong symbol ";
+		cout << endl;
+		return choice;
+		break;
+	}
+
+	system("pause");
+    return 0;
+}
+</p>
+</div>
+<div id="aside">
+<img src="Nick.png" alt="Nick.png">
+</div>
+
+  </main>
+
+ <footer>
+ Page Built in 2019 By Nicholas Forcum For CSIS 290
+</footer> 
+</body>
+</html>

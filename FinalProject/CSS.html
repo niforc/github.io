@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="flawed.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+<style>
+table { margin: auto;
+		border: 5px solid #ff0000;
+		padding: 1em;
+		width: 600px; }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <header>
+      <img src="Network+.png" alt="Network+.png">
+	  
+  </header>
+  </div>
+  <nav>
+  <ul id="float"> 
+     <li><a href="index.html">Home</a></li>
+	<li><a href="JavaScript.html">JavaScript</a></li>
+	<li><a href="C++.html">C++</a></li>
+	<li><a href="mySQL.html">mySQL</a></li>
+	<li><a href="Java.html">Java</a></li>
+	<li><a href="CSS.html">CSS</a></li>
+  </ul>
+  </nav>
+  <main>
+<div id="rightcol">  
+    <h3>This is a CSS Style Sheet I used when creating a Website for a friend's Small Business.</h3>
+
+<p>
+ul {text-decoration: none;
+	 background-color: #E0ffff;
+	 background-size: auto;
+	 float: left;
+	 padding: 20px;
+ }
+ li { font-family:Verdana, Arial, sans-serif;
+	text-decoration: none;
+	padding: 5px;
+	}
+body {font-family:Verdana, Arial, sans-serif;
+      background-color: #E0FFFF;
+	  color: #ff0000;
+}
+#wrapper { width: 80%;
+		   margin: none;
+           min-width: 800px;
+		   max-width: 1200px;
+} 
+nav { float: left;
+	  width: 150px;
+} 
+#rightcol { margin-left: 155px;
+        background-color: #e0ffff;
+        color: #ff000;
+} 
+header{ background-color: #e0ffff;
+        color: #00005D; 
+        font-size: 100%; 
+}
+h2 { color: #ff0000;
+     font-family: arial, sans-serif;
+	 position: relative;
+	 text-align: center;
+}
+main { display: block; /* for Internet Explorer version 10 and below */
+       padding: 20px 20px 0 20px;
+} 
+float {float: left;
+		width: 100px;
+        margin: 10px;
+}
+#aside { float: right; }
+
+.items { float: right;
+	 display: block;
+	 margin-left: 50px;
+ }
+.clearleft { clear: left}
+footer {font-size:70%;
+         text-align: center;
+		 clear: right;
+         padding-bottom: 20px;
+}	
+nav ul { list-style-type: none;
+}
+nav a {text-decoration: none;
+}
+nav a:link { color: #ff0000; }
+nav a:visited { color: #ff0000; }
+nav a:hover { color: #ff0000; }
+
+@media only screen and (max-width: 1024px) {
+            body { margin: 0; padding: 0; } 
+            #wrapper { width: auto; margin: 0; }
+		    h1 { font-size: 200%; }
+			#demo { -webkit-flex-direction: column;
+                    flex-direction: column;
+            }
+nav ul { display: -webkit-flex;
+                     display: flex;
+                     -webkit-flex-direction: row;
+                     flex-direction: row;
+				     -webkit-justify-content: center;
+                     justify-content: center; 
+			}
+nav li { padding: 0 0.5em; 
+				     font-size: 1.2em;
+			}
+			
+}		
+@media only screen and (max-width: 768px) {
+         	nav { -webkit-order: 1;
+                   order: 1;   }
+		   nav ul { -webkit-flex-wrap: wrap;
+	                flex-wrap: wrap; }
+}
+header, main, nav, footer, figure { display: block; }
+</p>
+</div>
+<div id="aside">
+<img src="Nick.png" alt="Nick.png">
+</div>
+
+  </main>
+
+ <footer>
+ Page Built in 2019 By Nicholas Forcum For CSIS 290
+</footer> 
+</body>
+</html>

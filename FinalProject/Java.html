@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Java</title>
+<meta charset="utf-8">
+<link href="flawed.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+<![endif]-->
+<style>
+main { margin-left: 100px;
+		padding: 70px;
+		background-color: #87ceeb;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <header>
+       <img src="Network+.png" alt="Network+.png">
+  </header>
+</div>  
+  <nav>
+  <ul id="float">
+   <li><a href="index.html">Home</a></li>
+	<li><a href="JavaScript.html">JavaScript</a></li>
+	<li><a href="C++.html">C++</a></li>
+	<li><a href="mySQL.html">mySQL</a></li>
+	<li><a href="Java.html">Java</a></li>
+	<li><a href="CSS.html">CSS</a></li>
+</ul>
+  </nav>
+    <main>
+<h2>OOP with JAVA</h2>
+<h2>In this coding I used a pop up box to give the user the option of choosing a temperature on a scale of Kelvin, Fahrenheit, or Celsius.
+The pop-up box would then display the results or have the user re-enter if incorrect data was entered. It has custom Exception handling and uses
+an Enum scale for the different temperature scales.</h2>
+<div class="codes">
+<h3>Temperature Class</h3>
+<p>package domain;
+
+public class Temperature
+{
+    public enum Scale {Kelvin, Celsius, Fahrenheit };//this is a enum, must pass in one of these 3 values
+
+    private static final double LOWEST_KELVIN_TEMP = 0.0;
+    private static final double LOWEST_CELSIUS_TEMP = -273.15;
+    private static final double LOWEST_FAHRENHEIT_TEMP = -459.67;
+
+    private double kelvin;
+    private double celsius;
+    private double fahrenheit;
+
+    public Temperature() throws TemperatureException
+    {
+       setKelvin(LOWEST_KELVIN_TEMP);
+    }
+    public Temperature(double inputTemp) throws TemperatureException
+    {
+        setKelvin(inputTemp);
+    }
+    public Temperature(Scale inputScale, double inputTemp) throws TemperatureException//this uses the enum constant
+    {
+        switch (inputScale)
+        {
+            case Kelvin:
+                setKelvin(inputTemp);
+                break;
+            case Celsius:
+                setCelsius(inputTemp);
+                break;
+            case Fahrenheit:
+                setFahrenheit(inputTemp);
+                break;
+        }
+    }
+    //setters
+    public void setKelvin(double kelvin) throws TemperatureException
+    {
+        if(kelvin < LOWEST_KELVIN_TEMP)
+        {
+            throw new TemperatureException("Invalid kelvin Temperature ( >= " + LOWEST_KELVIN_TEMP + ")");
+        }
+        this.kelvin = kelvin;
+        convertKelvinToCelsius();
+        convertCelsiusToFahrenheit();
+
+    }
+
+    public void setCelsius(double celsius) throws TemperatureException
+    {
+        if(celsius < LOWEST_CELSIUS_TEMP)
+    {
+        throw new TemperatureException("Invalid celsius Temperature ( >= " + LOWEST_CELSIUS_TEMP + ")");
+    }
+        this.celsius = celsius;
+        convertCelsiusToKelvin();
+        convertCelsiusToFahrenheit();
+    }
+
+    public void setFahrenheit(double fahrenheit) throws TemperatureException
+    {
+        if(fahrenheit < LOWEST_FAHRENHEIT_TEMP)
+        {
+            throw new TemperatureException("Invalid fahrenheit Temperature ( >= " + LOWEST_FAHRENHEIT_TEMP + ")");
+        }
+        this.fahrenheit = fahrenheit;
+        convertFahrenheitToCelsius();
+        convertCelsiusToKelvin();
+    }
+
+    //getters
+    public double getKelvin()
+    {
+        return kelvin;
+    }
+    public double getCelsius()
+    {
+        return celsius;
+    }
+    public double getFahrenheit()
+    {
+        return fahrenheit;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Temperature{" +
+                "kelvin=" + kelvin +
+                ", celsius=" + celsius +
+                ", fahrenheit=" + fahrenheit +
+                '}';
+    }
+    //private conversions
+    private void convertCelsiusToKelvin()
+    {
+        kelvin = celsius - LOWEST_CELSIUS_TEMP;
+    }
+    private void convertCelsiusToFahrenheit()
+    {
+        fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+    }
+    private void convertKelvinToCelsius()
+    {
+        celsius = kelvin + LOWEST_CELSIUS_TEMP;
+    }
+    private void convertFahrenheitToCelsius()
+    {
+        celsius = (fahrenheit -32) * 5.0 / 9.0;
+    }
+
+}</p>
+<h3>TemperatureException</h3>
+<p>
+package domain;
+
+public class TemperatureException extends Exception
+{
+    public TemperatureException()
+    {
+        //super("Invalid temperature operation occurred!"); YOu can do this either way!!!!!
+        this("Invalid temperature operation occurred!");
+    }
+    public TemperatureException(String message)
+    {
+        super(message);
+    }
+
+}
+</p>
+<h3>TestTemperature</h3>
+<p>
+package domain;
+
+//import domain.TemperatureException;
+//import domain.Temperature;
+import org.junit.*;
+
+public class TestTemperature
+{
+   @Test
+   public void TestTemperatureConstructor()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature();
+         Assert.assertNotNull(temp1);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+
+   }
+   @Test
+   public void TestTemperatureKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature();
+         Assert.assertEquals(0.0, temp1.getKelvin(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+
+   }
+   @Test
+   public void TestTemperatureKelvinToCelsius()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature();
+         Assert.assertEquals(-273.15, temp1.getCelsius(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+
+   }
+   @Test
+   public void TestTemperatureKelvinToFahrenheit()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature();
+         Assert.assertEquals(-459.67, temp1.getFahrenheit(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+
+   }
+   @Test
+   public void TestTemperatureCelsiusToKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setCelsius(-273.15);
+         Assert.assertEquals(0.0, temp1.getKelvin(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureCelsiusToFahrenheit()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setCelsius(100.0);
+         Assert.assertEquals(212.0, temp1.getFahrenheit(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureFahrenheitToCelsius()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setFahrenheit(212.0);
+         Assert.assertEquals(100.0, temp1.getCelsius(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureFahrenheitToKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setFahrenheit(-459.67);
+         Assert.assertEquals(0.0, temp1.getKelvin(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureSetInvalidKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(-42);
+
+         Assert.assertEquals(0.0, temp1.getKelvin(), 0.001);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(true);
+      }
+   }
+   @Test
+   public void TestTemperatureSetInvalidCelsius()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setCelsius(-1000.0);
+         Assert.assertTrue(false);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(true);
+      }
+   }
+   @Test
+   public void TestTemperatureSetInvalidFahrenheit()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(1000);
+         temp1.setFahrenheit(-1000.0);
+         Assert.assertTrue(false);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(true);
+      }
+   }
+   @Test
+   public void TestTemperatureSetScaleKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(0.0);
+         Assert.assertEquals(0.0, temp1.getKelvin(), 0.01);
+         Assert.assertEquals(-459.67, temp1.getFahrenheit(), 0.01);
+
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+//   @Test
+//   public void TestTemperatureSetScaleCelsius()
+//   {
+//      try
+//      {
+//         Temperature temp1 = new Temperature(100.0);
+//
+//         Assert.assertEquals(212.0, temp1.getFahrenheit(), 0.01);
+//
+//      }
+//      catch (TemperatureException tex)
+//      {
+//         Assert.assertTrue(false);
+//      }
+//   }
+//   @Test
+//   public void TestTemperatureSetScaleFahrenheit()
+//   {
+//      try
+//      {
+//         Temperature temp1 = new Temperature(212.0);
+//
+//         Assert.assertEquals(212.0, temp1.getFahrenheit(), 0.01);
+//         Assert.assertEquals(100, temp1.getCelsius(), 0.01);
+//      }
+//      catch (TemperatureException tex)
+//      {
+//         Assert.assertTrue(false);
+//      }
+//   }
+//   @Test
+//   public void TestTemperatureSetScaleInvalid()
+//   {
+//      try
+//      {
+//         Temperature temp1 = new Temperature(212.0);
+//
+//         Assert.assertTrue(false);
+//      }
+//      catch (TemperatureException tex)
+//      {
+//         Assert.assertTrue(true);
+//      }
+//   }
+   @Test
+   public void TestTemperatureSetEnumScaleKelvin()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(Temperature.Scale.Kelvin, 373.15);
+         Assert.assertEquals(100.0, temp1.getCelsius(), 0.01);
+         Assert.assertTrue(true);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureSetEnumScaleCelsius()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(Temperature.Scale.Celsius, 100.0);
+         Assert.assertEquals(100.0, temp1.getCelsius(), 0.01);
+         Assert.assertEquals(212.0, temp1.getFahrenheit(), 0.01);
+         Assert.assertTrue(true);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+   @Test
+   public void TestTemperatureSetEnumScaleFahrenheit()
+   {
+      try
+      {
+         Temperature temp1 = new Temperature(Temperature.Scale.Fahrenheit, 212.0);
+         Assert.assertEquals(100.0, temp1.getCelsius(), 0.01);
+         Assert.assertEquals(212.0, temp1.getFahrenheit(), 0.01);
+         Assert.assertTrue(true);
+      }
+      catch (TemperatureException tex)
+      {
+         Assert.assertTrue(false);
+      }
+   }
+}
+</p>
+<h3>FrameTemp</h3>
+<p>
+package gui;
+
+import domain.TemperatureException;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class FrameTemp extends JFrame
+{
+   private PanelTempInput pnlInput;
+   private PanelTempOutput pnlOutput;
+
+   public FrameTemp()
+   {
+    pnlInput = new PanelTempInput();
+    pnlOutput = new PanelTempOutput();
+
+    pnlInput.setOutputPanelReference(pnlOutput);//output panel
+
+    add(pnlInput, BorderLayout.WEST);
+    add(pnlOutput, BorderLayout.EAST);
+
+   }
+
+
+}
+</p>
+<h3>JDataInput</h3>
+<p>
+package gui;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class JDataInput extends JPanel
+{
+    private JLabel lblInput;
+    private JTextField txtInput;
+    private JLabel lblMessage;
+
+    public JDataInput()
+    {
+
+    }
+    public JDataInput(String caption)
+    {
+        lblInput = new JLabel(caption);
+        txtInput = new JTextField(20);
+        lblMessage = new JLabel("");
+        lblMessage.setForeground(Color.RED);
+
+        JPanel row1 = new JPanel();
+        JPanel row2 = new JPanel();
+
+        row1.add(lblInput);
+        row1.add(txtInput);
+
+        row2.add(lblMessage);
+
+        setLayout(new GridLayout(2, 1));
+
+        this.add(row1);
+        this.add(row2);
+    }
+
+    public double getDoubleValue()
+    {
+        double returnValue = 0.0;
+        lblMessage.setText("");
+        try
+        {
+            returnValue =  Double.parseDouble( txtInput.getText());
+        }
+        catch (NumberFormatException nfex)
+        {
+            lblMessage.setText(nfex.toString());
+            throw nfex;
+        }
+        return returnValue;
+    }
+    public double getIntegerValue()
+    {
+        int returnValue = 0;
+        lblMessage.setText("");
+        try
+        {
+            returnValue = Integer.parseInt( txtInput.getText() );
+        }
+        catch (NumberFormatException  nfex)
+        {
+            lblMessage.setText(nfex.toString());
+            throw nfex;////////important to rethrow the exception
+        }
+        return returnValue ;
+    }
+    public String getStringValue()
+    {
+        String returnValue = "";
+        lblMessage.setText("");
+        try
+        {
+            returnValue = txtInput.getText();
+        }
+        catch (NumberFormatException  nfex)
+        {
+            lblMessage.setText(nfex.toString());
+            throw nfex;////////important to rethrow the exception
+        }
+        return returnValue ;
+    }
+
+    public void setMessage(String message)
+    {
+        lblMessage.setText(message);
+    }
+}
+</p>
+<h3>PanelTempInput</h3>
+<p>
+package gui;
+
+import domain.Temperature;
+import domain.TemperatureException;
+import org.apache.logging.log4j.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class PanelTempInput extends JPanel implements ActionListener
+{
+    private static Logger logger = LogManager.getLogger(PanelTempInput.class);
+
+    private JDataInput datTemperature;
+    private JComboBox<Temperature.Scale> cboScale;
+    private JButton btnSubmit;
+    //private JLabel lblMessage;
+
+    private PanelTempOutput refOutputPanel;//there needs to be something to receive
+
+    public void setOutputPanelReference(PanelTempOutput outputPanel)
+    {
+        this.refOutputPanel = outputPanel;
+    }
+
+
+    public PanelTempInput()
+    {
+        datTemperature = new JDataInput("Enter temperature value:");
+        //lblMessage = new JLabel("");
+        btnSubmit = new JButton("Submit");
+        btnSubmit.setActionCommand("submit");
+        //either the panel itself traps the events
+        btnSubmit.addActionListener(this);
+        //... or our custom handler class traps the events
+       // btnSubmit.addActionListener(new ClickHandler());
+
+        cboScale = new JComboBox<Temperature.Scale>();
+        cboScale.addItem(Temperature.Scale.Kelvin);
+        cboScale.addItem(Temperature.Scale.Celsius);
+        cboScale.addItem(Temperature.Scale.Fahrenheit);
+        //have individual panels cat as "rows" for neat output layyout
+        JPanel row1 = new JPanel();//throw away rows
+        JPanel row2 = new JPanel();
+        JPanel row3 = new JPanel();
+//        JPanel row4 = new JPanel();
+
+        //add each widget to it's own "row panel"
+        row1.add(cboScale);
+        row2.add(datTemperature);
+//        row3.add(lblMessage);
+        row3.add(btnSubmit);
+
+        //row4.add(btnSubmit);
+        //have each "row panel" appear vertically down a new grid layout
+        this.setLayout(new GridLayout(3, 1));//changes layout
+        //actually add the "row panels" to the enclosing panel
+        add(row1);
+        add(row2);
+        add(row3);
+//        add(row4);
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        logger.debug(e.getActionCommand());
+//        System.out.println("HEY !!! The panel caught this !!!!!");
+        //System.out.println(datTemperature.getDoubleValue());
+        try
+        {
+            //Temperature temp = new Temperature((Temperature.Scale)cboScale.getSelectedItem(), datTemperature.getDoubleValue());
+            //Temperature.Scale inputScale = (Temperature.Scale) cboScale.getSelectedItem(), datTemperature.getDoubleValue());
+            //double inputTemp = datTemperature.getDoubleValue();
+
+            Temperature myTemp = new Temperature((Temperature.Scale)cboScale.getSelectedItem(), datTemperature.getDoubleValue());
+
+            //need to be able to call a method on an instance of the output panel
+            refOutputPanel.DisplayTextInTextArea(myTemp.toString() + "\n");
+        }
+        catch (NumberFormatException nfex)
+        {
+            datTemperature.setMessage("Please enter valid data: ");
+        }
+        catch (TemperatureException tex)
+        {
+            datTemperature.setMessage(tex.toString());
+
+            //throw new TemperatureException()
+        }
+        catch (Exception ex)
+        {
+            datTemperature.setMessage(ex.toString());
+        }
+    }
+}
+</p>
+<h3>PanelTempOutput</h3>
+<p>
+package gui;
+
+import javax.swing.*;
+
+public class PanelTempOutput extends JPanel
+{
+    private JTextArea taOutput;
+
+    public PanelTempOutput()
+    {
+        taOutput = new JTextArea(15, 60);
+
+        add(taOutput);
+    }
+    public void DisplayTextInTextArea(String data)
+    {
+        taOutput.append(data);
+    }
+}
+</p>
+<h3>DriverTemp</h3>
+<p>
+package main;
+
+import domain.Temperature;
+import domain.TemperatureException;
+import gui.FrameTemp;
+
+import javax.swing.*;
+
+public class DriverTemp
+{
+    public static void main(String[] args)
+    {
+        FrameTemp frmApp = new FrameTemp();
+        frmApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmApp.setSize(1200, 400);
+        frmApp.setVisible(true);
+</p>
+</div>
+<div id="aside">
+<img src="Nick.png" alt="Nick.png">
+</div>
+  </main>
+<footer>
+ Page Built in 2019 By Nicholas Forcum For CSIS 290
+</footer> 
+</body>
+</html>
